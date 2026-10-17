@@ -12,7 +12,7 @@ permissions:
 jobs:
   build:
     name: Build iOS app (unsigned)
-    runs-on: macos-14
+    runs-on: macos-15
     timeout-minutes: 40
 
     steps:
@@ -27,7 +27,9 @@ jobs:
 
       - name: Generate Xcode project
         working-directory: ios
-        run: xcodegen generate
+        run: |
+          xcodegen generate
+          grep -m1 objectVersion RevolutDemo.xcodeproj/project.pbxproj || true
 
       - name: Show build environment
         run: xcodebuild -version
